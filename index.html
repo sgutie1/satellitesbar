@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+<link rel="stylesheet" type="text/css" href="bar.css"/>
+<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900,300italic,400italic' rel='stylesheet' type='text/css'>
+    
+</head>
+<body>
+    <div id="headline">Number of Satellites by Type</div>
+
+  <!--
+<div id="maincontainer">
+        <div id="headline">Hogan Covers Budget, Taxes More Than O'Malley Did in State of the State Address</div>
+        <div id="subhead">Times are changing. During Gov. Larry Hogan's first State of the State speech this week, he spent way more time talking about the state budget and taxes than his predecessor Gov. Martin O'Malley did in the State of the State speeches at the beginning of each of his two terms in office. O'Malley spent more time in 2007 and 2011 talking about the environment, security and health than Hogan did in 2015, a Capital News Service analysis found. For people coming from our Facebook page, Hogan said "tax" 19 times and "taxes" nine times. </div> -->
+
+        <svg class="chart"></svg>
+  <script type="text/javascript">
+    //Adapted code from http://bl.ocks.org/erikvullings/51cc5332439939f1f292
+        var data = {
+          labels: [
+            'Communications', 'Earth Observation', 'Technology Development', 'Spy*', 'Navigation', 'Maritime Tracking', 'Space Observation', 'Research', 'Earth Science'
+          ],
+          series: [
+            {
+              label: '',
+              values: [664, 309, 143, 102, 96, 5, 5, 3, 2]
+            },]
+        };
+
+        var chartWidth       = 550,
+            barHeight        = 20,
+            groupHeight      = barHeight * data.series.length,
+            gapBetweenGroups = 10,
+            spaceForLabels   = 240,
+            spaceForLegend   = 150;
+
+        // Zip the series data together (first values, second values, etc.)
+        var zippedData = [];
+        for (var i=0; i<data.labels.length; i++) {
+          for (var j=0; j<data.series.length; j++) {
+            zippedData.push(data.series[j].values[i]);
+          }
+        }
+        
+
+       
+
+        // Color scale
+        var color = d3.scale.category20b();
+        var chartHeight = barHeight * zippedData.length + gapBetweenGroups * data.labels.length;
+
+        var x = d3.scale.linear()
+            .domain([0, d3.max(zippedData)])
+            .range([0, chartWidth]);
+
+        var y = d3.scale.linear()
+            .range([chartHeight + gapBetweenGroups, 0]);
+
+        var yAxis = d3.svg.axis()
+            .scale(y)
+            .tickFormat('')
+            .tickSize(0)
+            .orient("left");
+
+        // Specify the chart area and dimensions
+        var chart = d3.select(".chart")
+            .attr("width", spaceForLabels + chartWidth + spaceForLegend)
+            .attr("height", chartHeight);
+
+        // Create bars
+        var bar = chart.selectAll("g")
+            .data(zippedData)
+            .enter().append("g")
+            .attr("transform", function(d, i) {
+              return "translate(" + spaceForLabels + "," + (i * barHeight + gapBetweenGroups * (0.5 + Math.floor(i/data.series.length))) + ")";
+            });
+
+        // Create rectangles of the correct width
+        bar.append("rect")
+            .attr("fill", function(d,i) { return color(i % data.series.length); })
+            .attr("class", "bar")
+            .attr("width", x)
+            .attr("height", barHeight - 1)
+            .style("fill", function(d) {
+               if (d == 102) {return "#0050FF"} 
+
+                else {return "#423536"};
+
+            });
+
+        // Add text label in bar
+        bar.append("text")
+            .attr("x", function(d) { return x(d) + 20; })
+            .attr("y", barHeight / 2)
+            .attr("fill", "red")
+            .attr("dy", ".25em")
+            .text(function(d) { return d + " "; });
+
+        // Draw labels
+        bar.append("text")
+            .attr("class", "label")
+            .attr("x", function(d) { return - 10; })
+            .attr("y", groupHeight / 2)
+            .attr("dy", ".25em")
+            .text(function(d,i) {
+              if (i % data.series.length === 0)
+                return data.labels[Math.floor(i/data.series.length)];
+              else
+                return ""});
+
+        chart.append("g")
+              .attr("class", "y axis")
+              .attr("transform", "translate(" + spaceForLabels + ", " + -gapBetweenGroups/2 + ")")
+              .call(yAxis);
+
+</script>
+
+<figcaption>Source: Union of Concerned Scientists Satellite Database</figcaption> 
+
+<div id= "methodology">Satellites may be included in multiple catergories. <br> * Some satellites in this category are not confirmed, but highly suspected by western military, to have spy functions.  </div>
+
+</body>
+</html>

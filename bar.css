@@ -1,0 +1,78 @@
+.chart .legend {
+   fill: black;
+   font: 14px sans-serif;
+   text-anchor: start;
+   font-size: 10px;
+}
+
+.chart text {
+   fill: black;
+   font: 10px sans-serif;
+   text-anchor: end;
+ }
+
+.chart .label {
+   fill: #696666;
+   font: 12px sans-serif;
+   text-anchor: end;
+   font-size: 12px;
+}
+
+
+
+
+.bar {
+  fill: #423536;
+}
+
+.bar:hover {
+   fill: #FF0000;
+}
+
+.axis path,
+.axis line {
+   fill: none;
+   stroke: #000;
+   shape-rendering: crispEdges;
+}
+
+.chart {
+  width: 100%;
+  height: 300px;
+}
+
+#methodology {
+    margin-top: 2em;
+    border: 1px solid black;
+    font-size: 11px;
+    width: 100%;
+    text-align: center;
+    padding: 0.5em;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+}
+
+figcaption {
+  float: right;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 10px;
+  color: #A59891;
+
+}
+
+#maincontainer {
+    max-width: 800px;
+    min-width: 300px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin: 0 auto;
+}
+
+#headline {
+    font-size: 30px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
